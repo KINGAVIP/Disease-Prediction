@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Hello welcome to my Project</h2>
+    <form name="form" action="/pred" method="POST"x>
+            <br>
+            <!-- <label for="symp1">Choose a Symptom:</label> -->
+            Symptom1:<select id="symp1" name="symp1">
+            {%for i in range(0,len)%}
+                <option>{{symptoms[i]}}</option>
+            {%endfor%}
+            </select>
+            <br>        
+            <br>
+            <!-- <label for="symp2">Choose a Symptom:</label> -->
+            Symptom2:<select id="symp2" name="symp2">
+            {%for i in range(0,len)%}
+                <option >{{symptoms[i]}}</option>
+            {%endfor%}
+            </select>
+            <br>
+            <br>
+
+            <!-- <label for="symp3">Choose a Symptom:</label> -->
+            Symptom3:<select id="symp3" name="symp3">
+            {%for i in range(0,len)%}
+                <option >{{symptoms[i]}}</option>
+            {%endfor%}
+            </select>
+            <br>        
+            <br>
+
+            <!-- <label for="symp4">Choose a Symptom:</label> -->
+            Symptom4:<select id="symp4" name="symp4">
+            {%for i in range(0,len)%}
+                <option >{{symptoms[i]}}</option>
+            {%endfor%}
+            </select>
+            <br>        
+            <br>
+            Symptom5:<select id="symp5" name="symp5">
+            {%for i in range(0,len)%}
+                <option >{{symptoms[i]}}</option>
+            {%endfor%}
+            </select>
+            <br>        
+            <br>
+            <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
