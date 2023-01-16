@@ -1,6 +1,7 @@
 from flask import Flask,request,render_template
 import pandas as pd
 import numpy as np
+from flask import jsonify
 from sklearn.naive_bayes import MultinomialNB
 import pickle
 app=Flask(__name__)
@@ -41,7 +42,7 @@ disease=['Fungal infection','Allergy','GERD','Chronic cholestasis','Drug Reactio
 def home():
     return render_template("home.html",len=len(symptoms),symptoms=symptoms)
 
-@app.route('/pred',methods=['GET','POST'])
+@app.route('/',methods=['GET','POST'])
 def func():
     if request.method=='POST':
         l2=[]
@@ -73,7 +74,38 @@ def func():
             answer=disease[op]
         
         print("value is",op)
-        return render_template("pred.html",answer=answer)
+        return render_template("home.html",ans=answer)
+
+@app.route('/upload',methods=['GET','POST'])
+def upload():
+        l2=[]
+        for x in range(0,len(symptoms)):
+            l2.append(0)
+        model=pickle.load(open('model.pkl','rb'))
+        symp1=request.form.get("symp1")
+        symp2=request.form.get("symp2")
+        symp3=request.form.get("symp3")
+        symp4=request.form.get("symp4")
+        symp5=request.form.get("symp5")
+        test_input=[symp1,symp2,symp3,symp4,symp5]
+
+        for i in range(0,len(symptoms)):
+            for j in test_input:
+                if(j==symptoms[i]):
+                    l2[i]=1
+        answer='no'
+        test_input=[l2]
+        print("Symptom 1 is:",symp1)
+        predict=model.predict(test_input)       
+        op=predict[0]
+        ans='no'
+        for a in range(0,len(disease)):
+            if(disease[op]==disease[a]):
+                ans='yes'
+                break
+        if ans=='yes':
+            answer=disease[op]
+        return jsonify({"ans":answer})
 
 if __name__ == '__main__':
     app.run(debug=True)
